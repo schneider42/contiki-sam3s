@@ -1,0 +1,23 @@
+# $Id: Makefile.mb851,v 1.2 2010/12/15 11:18:09 salvopitru Exp $
+
+
+ARCH = 
+RF212BB=1
+CONTIKI_TARGET_DIRS = . libboard_sam3s-muccc/source libboard_sam3s-muccc/include libboard_sam3s-muccc
+ifndef CONTIKI_TARGET_MAIN
+CONTIKI_TARGET_MAIN = contiki-main.c board_cstartup_gnu.c board_lowlevel.c syscalls.c device_descriptor.c usbcdc.c eeprom.c
+endif
+
+ifdef UIP_CONF_IPV6
+CFLAGS += -DWITH_UIP6=1
+endif
+
+CONTIKI_TARGET_SOURCEFILES += $(ARCH) $(CONTIKI_TARGET_MAIN)
+
+CHIP=sam3s2
+TRACE_LEVEL = 4
+OPTIMIZATION = -Os
+include $(CONTIKI)/cpu/sam3s/Makefile.sam3s
+include $(CONTIKI)/cpu/sam3s/radio/Makefile.radio
+
+
